@@ -2,8 +2,10 @@ import pygame
 from controller.game_controller import GameController
 from view.interface_drawer import InterfaceDrawer
 
-
 def main():
+    """
+    The main function initializes the game and starts the game loop.
+    """
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("RogueLike Game")
@@ -17,16 +19,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            controller.handle_event(event)
+            else:
+                controller.handle_event(event)
 
         controller.update()
-        drawer.draw(controller.get_game_state())
+        game_state = controller.get_game_state()
+        drawer.draw(game_state)
 
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(10)
 
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

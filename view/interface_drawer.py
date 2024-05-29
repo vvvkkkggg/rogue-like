@@ -1,43 +1,72 @@
 import pygame
 
-
 class InterfaceDrawer:
     """
     The InterfaceDrawer class is responsible for drawing the game interface on the screen.
 
     Attributes:
-        screen: The Pygame screen surface to draw on.
+        screen (pygame.Surface): The Pygame surface on which to draw the interface.
     """
-
     def __init__(self, screen):
         """
         Initializes a new instance of the InterfaceDrawer class.
 
         Args:
-            screen: The Pygame screen surface to draw on.
+            screen (pygame.Surface): The Pygame surface on which to draw the interface.
         """
         self.screen = screen
 
     def draw(self, game_state):
         """
-        Draws the game interface on the screen.
+        Draws the game state on the screen.
 
         Args:
-            game_state (dict): The current state of the game, including field and player.
+            game_state (dict): The current state of the game.
         """
-        # Clear the screen
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((0, 0, 0))  # Clear screen with black
+        self.draw_player(game_state['player'])
+        for monster in game_state['monsters']:
+            self.draw_monster(monster)
 
-        # Draw the game field
-        field = game_state["field"]
-        for y, row in enumerate(field.cells):
-            for x, cell in enumerate(row):
-                if cell:
-                    color = (255, 255, 255)  # White for cells with content
-                else:
-                    color = (0, 0, 0)  # Black for empty cells
-                pygame.draw.rect(self.screen, color, pygame.Rect(x * 32, y * 32, 32, 32))
+    def draw_player(self, player):
+        """
+        Draws the player on the screen.
 
-        # Draw the player
-        player = game_state["player"]
-        pygame.draw.rect(self.screen, (0, 255, 0), pygame.Rect(player.position.x * 32, player.position.y * 32, 32, 32))
+        Args:
+            player (dict): The state of the player.
+        """
+        x, y = player['position']
+        pygame.draw.rect(self.screen, (0, 255, 0), (x * 20, y * 20, 20, 20))
+
+        health_x = x * 20
+        health_y = y * 20 - 20
+
+        font = pygame.font.Font(None, 24)
+        text_surface = font.render(f"HP: {player['hp']}", True, (255, 255, 255))
+        self.screen.blit(text_surface, (health_x, health_y))
+
+        defense_surface = font.render(f"Defense: {player['defense']}", True, (255, 255, 255))
+        self.screen.blit(defense_surface, (health_x, health_y + 20))
+
+    def draw_monster(self, monster):
+        """
+        Draws a monster on the screen.
+
+        Args:
+            monster (dict): The state of the monster.
+        """
+        x, y = monster['position']
+        color = (255, 0, 0) if monster['type'] == 'AggressiveMonster' else (255, 255, 0) if monster[
+                                                                                                'type'] == 'PassiveMonster' else (
+        0, 0, 255)
+        pygame.draw.rect(self.screen, color, (x * 20, y * 20, 20, 20))
+
+        health_x = x * 20
+        health_y = y * 20 - 20
+
+        font = pygame.font.Font(None, 24)
+        text_surface = font.render(f"HP: {monster['hp']}", True, (255, 255, 255))
+        self.screen.blit(text_surface, (health_x, health_y))
+
+        defense_surface = font.render(f"Defense: {monster['defense']}", True, (255, 255, 255))
+        self.screen.blit(defense_surface, (health_x, health_y + 20))
