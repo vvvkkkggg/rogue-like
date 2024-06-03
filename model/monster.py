@@ -24,7 +24,7 @@ class Monster:
     """
 
     def __init__(
-        self, position, strategy, hp, attack, defense, speed, distance, copy_probability
+        self, position, strategy, hp, attack, defense, speed, distance, copy_probability=0
     ):
         """
         Initializes a new instance of the Monster class.
