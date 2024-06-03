@@ -96,7 +96,7 @@ class DefaultMapBuilder(MapBuilder):
         Builds and returns the game instance by loading data from the file.
 
         Returns:
-            Game: The constructed game instance.
+            MapBuilder: builder.
         """
         with open(self.filename, 'r') as file:
             lines = file.readlines()
@@ -159,7 +159,7 @@ class GenerateMapBuilder(MapBuilder):
         Builds and returns the game instance by generating random data.
 
         Returns:
-            Game: The constructed game instance.
+            MapBuilder: builder.
         """
         occupied_positions = set((0,0))
         monster_types = list(self.monster_probabilities.keys())
@@ -180,3 +180,28 @@ class GenerateMapBuilder(MapBuilder):
         self.player = Player()
         return self
 
+class HardcodeMapBuilder(MapBuilder):
+    """
+    HardcodeMapBuilder with harcoded objects.
+    """
+    def __init__(self):
+        """
+        Initializes a new instance of the HardcodeMapBuilder class.
+        """
+        super().__init__(0, 0)
+
+    def build(self):
+        """
+        Builds and returns the game instance with harcodeds values.
+
+        Returns:
+            MapBuilder: builder.
+        """
+        self.player = Player()
+        self.field = Field(20, 20)
+        self.monsters = [
+            AggressiveMonster(Position(5, 5)),
+            PassiveMonster(Position(10, 10)),
+            CowardlyMonster(Position(15, 15))
+        ]
+        return self

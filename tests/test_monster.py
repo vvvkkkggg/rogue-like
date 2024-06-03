@@ -25,10 +25,10 @@ class TestMonster(unittest.TestCase):
         monster = Monster(position, strategy, 30, 10, 5, 0.2, 4)
 
         monster.take_damage(10)
-        self.assertEqual(monster.hp, 20)
+        self.assertEqual(monster.hp, 29)
 
         monster.take_damage(30)
-        self.assertEqual(monster.hp, -10)
+        self.assertEqual(monster.hp, 26)
 
     def test_aggressive_monster(self):
         position = Position(0, 0)

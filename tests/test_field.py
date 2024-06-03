@@ -4,11 +4,11 @@ from model.field import Field
 
 class TestField(unittest.TestCase):
     def setUp(self):
-        self.field = Field()
+        self.field = Field(20, 20)
 
     def test_initialization(self):
         # Проверка, что поле инициализируется правильно и все ячейки имеют значение None
-        for row in self.field.cells:
+        for row in self.field.grid:
             for cell in row:
                 self.assertIsNone(cell)
 
@@ -20,10 +20,10 @@ class TestField(unittest.TestCase):
 
     def test_set_and_get_cell(self):
         # Проверка установки значения в ячейку и получения этого значения
-        self.field.cells[2][3] = "X"
+        self.field.grid[2][3] = "X"
         self.assertEqual(self.field.get_cell(3, 2), "X")
 
-        self.field.cells[0][0] = "A"
+        self.field.grid[0][0] = "A"
         self.assertEqual(self.field.get_cell(0, 0), "A")
 
 
