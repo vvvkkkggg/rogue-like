@@ -6,6 +6,7 @@ class Ability:
         name (str): The name of the ability.
         effect (function): The function representing the effect of the ability.
     """
+
     def __init__(self, name, effect):
         """
         Initializes a new instance of the Ability class.

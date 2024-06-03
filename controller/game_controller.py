@@ -3,10 +3,12 @@ from model.game import Game
 from model.confusion_decorator import ConfusionDecorator
 from model.monster import Monster
 
+
 class GameController:
     """
     The GameController class is responsible for handling user input and updating the game state.
     """
+
     def __init__(self):
         """
         Initializes the GameController instance and creates a new Game instance.

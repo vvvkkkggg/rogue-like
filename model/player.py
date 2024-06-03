@@ -1,5 +1,6 @@
 from model.position import Position
 
+
 class Player:
     """
     The Player class represents the player character in the game.
@@ -12,6 +13,7 @@ class Player:
         experience (int): The experience points of the player.
         level (int): The level of the player.
     """
+
     def __init__(self):
         """
         Initializes a new instance of the Player class with the default position (0, 0).

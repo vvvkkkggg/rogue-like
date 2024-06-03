@@ -1,10 +1,12 @@
 import random
 from model.field import Field
 
+
 class Generator:
     """
     The Generator class is responsible for generating game fields.
     """
+
     @staticmethod
     def generate_field(width: int, height: int):
         """

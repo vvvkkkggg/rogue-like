@@ -1,5 +1,6 @@
 import random
 
+
 class ConfusionDecorator:
     """
     The ConfusionDecorator class represents a temporary confusion effect applied to a monster.
@@ -8,6 +9,7 @@ class ConfusionDecorator:
         strategy (Strategy): The original strategy of the monster.
         turns_remaining (int): The number of turns the confusion effect lasts.
     """
+
     def __init__(self, strategy, turns):
         """
         Initializes a new instance of the ConfusionDecorator class.

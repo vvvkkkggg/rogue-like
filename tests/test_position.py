@@ -3,7 +3,6 @@ from model.position import Position
 
 
 class TestPosition(unittest.TestCase):
-
     def test_initialization(self):
         pos = Position(0, 0)
         self.assertEqual(pos.x, 0)
@@ -24,5 +23,5 @@ class TestPosition(unittest.TestCase):
         self.assertEqual(pos.y, -1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

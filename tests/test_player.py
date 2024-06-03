@@ -4,7 +4,6 @@ from model.player import Player
 
 
 class TestPlayer(unittest.TestCase):
-
     def setUp(self):
         self.player = Player()
 
@@ -33,5 +32,5 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.player.position.y, 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
