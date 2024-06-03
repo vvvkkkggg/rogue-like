@@ -3,8 +3,8 @@ from model.position import Position
 from model.strategy import AggressiveStrategy, PassiveStrategy, CowardlyStrategy
 from model.monster import Monster, AggressiveMonster, PassiveMonster, CowardlyMonster
 
-class TestMonster(unittest.TestCase):
 
+class TestMonster(unittest.TestCase):
     def test_monster_initialization(self):
         position = Position(0, 0)
         strategy = AggressiveStrategy()
@@ -48,5 +48,6 @@ class TestMonster(unittest.TestCase):
         self.assertIsInstance(monster.strategy, CowardlyStrategy)
         self.assertEqual(monster.hp, 15)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

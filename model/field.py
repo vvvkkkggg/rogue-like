@@ -7,6 +7,7 @@ class Field:
         height (int): The height of the field.
         grid (list): The 2D grid of cells representing the field.
     """
+
     def __init__(self, width, height):
         """
         Initializes a new instance of the Field class with the given width and height.

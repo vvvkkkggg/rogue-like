@@ -1,5 +1,10 @@
 from model.position import Position
-from model.strategy import AggressiveStrategy, PassiveStrategy, CowardlyStrategy, SameTypeCollisionAvoidanceStrategy
+from model.strategy import (
+    AggressiveStrategy,
+    PassiveStrategy,
+    CowardlyStrategy,
+    SameTypeCollisionAvoidanceStrategy,
+)
 import pygame
 import copy
 import random

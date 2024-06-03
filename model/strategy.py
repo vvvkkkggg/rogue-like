@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 class Strategy:
     """
     The Strategy class represents a strategy for monster movement.
@@ -165,7 +166,7 @@ class SameTypeCollisionAvoidanceStrategy(Strategy):
 
         if not monsters:
             return
-        
+
         monsters_positions = map(
             lambda monster: (monster.position.x, monster.position.y),
             filter(
@@ -181,7 +182,7 @@ class SameTypeCollisionAvoidanceStrategy(Strategy):
         for x, y in self.get_near_monster_position(monster):
             if (x, y) in monsters_positions:
                 continue
-            
+
             if not (0 <= x <= field.width and 0 <= y <= field.height):
                 continue
 

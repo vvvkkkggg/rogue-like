@@ -6,6 +6,7 @@ class Position:
         x (int): The x-coordinate of the position.
         y (int): The y-coordinate of the position.
     """
+
     def __init__(self, x, y):
         """
         Initializes a new instance of the Position class with the specified coordinates.
