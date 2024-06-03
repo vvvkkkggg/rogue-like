@@ -1,14 +1,3 @@
-from model.player import Player
-from model.field import Field
-from model.position import Position
-from model.monster import (
-    AggressiveMonster,
-    PassiveMonster,
-    CowardlyMonster,
-    MoldMonster,
-)
-
-
 class Game:
     """
     The Game class represents the main game logic and state.
@@ -19,18 +8,13 @@ class Game:
         monsters (list): The list of monsters in the game.
     """
 
-    def __init__(self):
+    def __init__(self, map_builder):
         """
         Initializes a new instance of the Game class, setting up the player, field, and monsters.
         """
-        self.player = Player()
-        self.field = Field(20, 20)
-        self.monsters = [
-            AggressiveMonster(Position(5, 5)),
-            PassiveMonster(Position(10, 10)),
-            CowardlyMonster(Position(15, 15)),
-            MoldMonster(Position(5, 10)),
-        ]
+        self.player = map_builder.player
+        self.field = map_builder.field
+        self.monsters = map_builder.monsters
 
     def move_player(self, direction):
         """
