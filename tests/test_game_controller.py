@@ -2,19 +2,13 @@ import unittest
 from unittest.mock import Mock, patch
 import pygame
 from model.game import Game
+from model.builder import HardcodeMapBuilder
 from controller.game_controller import GameController
 
 
 class TestGameController(unittest.TestCase):
     def setUp(self):
-        self.game_controller = GameController()
-
-    @patch("controller.game_controller.Game")
-    def test_initialization(self, MockGame):
-        # Проверка, что GameController инициализирует объект Game
-        mock_game_instance = MockGame.return_value
-        game_controller = GameController()
-        self.assertEqual(game_controller.game, mock_game_instance)
+        self.game_controller = GameController(Game(HardcodeMapBuilder().build()))
 
     def test_handle_event_up(self):
         # Проверка обработки нажатия клавиши W
