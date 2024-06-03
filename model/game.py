@@ -1,7 +1,12 @@
 from model.player import Player
 from model.field import Field
 from model.position import Position
-from model.monster import AggressiveMonster, PassiveMonster, CowardlyMonster, MoldMonster
+from model.monster import (
+    AggressiveMonster,
+    PassiveMonster,
+    CowardlyMonster,
+    MoldMonster,
+)
 
 
 class Game:

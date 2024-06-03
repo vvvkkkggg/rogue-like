@@ -34,13 +34,22 @@ class GameDrawer:
                     color = (255, 255, 255)  # White for cells with content
                 else:
                     color = (0, 0, 0)  # Black for empty cells
-                pygame.draw.rect(self.screen, color, pygame.Rect(x * 32, y * 32, 32, 32))
+                pygame.draw.rect(
+                    self.screen, color, pygame.Rect(x * 32, y * 32, 32, 32)
+                )
 
         player = game_state["player"]
-        pygame.draw.rect(self.screen, (0, 255, 0), pygame.Rect(player.position.x * 32, player.position.y * 32, 32, 32))
+        pygame.draw.rect(
+            self.screen,
+            (0, 255, 0),
+            pygame.Rect(player.position.x * 32, player.position.y * 32, 32, 32),
+        )
 
         for monster in game_state["monsters"]:
-            pygame.draw.rect(self.screen, (255, 0, 0),
-                             pygame.Rect(monster.position.x * 32, monster.position.y * 32, 32, 32))
+            pygame.draw.rect(
+                self.screen,
+                (255, 0, 0),
+                pygame.Rect(monster.position.x * 32, monster.position.y * 32, 32, 32),
+            )
 
         pygame.display.flip()
