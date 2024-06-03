@@ -1,5 +1,6 @@
 import pygame
 
+
 class InterfaceDrawer:
     """
     The InterfaceDrawer class is responsible for drawing the game interface on the screen.
@@ -7,6 +8,7 @@ class InterfaceDrawer:
     Attributes:
         screen (pygame.Surface): The Pygame surface on which to draw the interface.
     """
+
     def __init__(self, screen):
         """
         Initializes a new instance of the InterfaceDrawer class.
@@ -24,8 +26,8 @@ class InterfaceDrawer:
             game_state (dict): The current state of the game.
         """
         self.screen.fill((0, 0, 0))  # Clear screen with black
-        self.draw_player(game_state['player'])
-        for monster in game_state['monsters']:
+        self.draw_player(game_state["player"])
+        for monster in game_state["monsters"]:
             self.draw_monster(monster)
 
     def draw_player(self, player):
@@ -35,7 +37,7 @@ class InterfaceDrawer:
         Args:
             player (dict): The state of the player.
         """
-        x, y = player['position']
+        x, y = player["position"]
         pygame.draw.rect(self.screen, (0, 255, 0), (x * 20, y * 20, 20, 20))
 
         health_x = x * 20
@@ -45,7 +47,9 @@ class InterfaceDrawer:
         text_surface = font.render(f"HP: {player['hp']}", True, (255, 255, 255))
         self.screen.blit(text_surface, (health_x, health_y))
 
-        defense_surface = font.render(f"Defense: {player['defense']}", True, (255, 255, 255))
+        defense_surface = font.render(
+            f"Defense: {player['defense']}", True, (255, 255, 255)
+        )
         self.screen.blit(defense_surface, (health_x, health_y + 20))
 
     def draw_monster(self, monster):
@@ -55,10 +59,14 @@ class InterfaceDrawer:
         Args:
             monster (dict): The state of the monster.
         """
-        x, y = monster['position']
-        color = (255, 0, 0) if monster['type'] == 'AggressiveMonster' else (255, 255, 0) if monster[
-                                                                                                'type'] == 'PassiveMonster' else (
-        0, 0, 255)
+        x, y = monster["position"]
+        color = (
+            (255, 0, 0)
+            if monster["type"] == "AggressiveMonster"
+            else (255, 255, 0)
+            if monster["type"] == "PassiveMonster"
+            else (0, 0, 255)
+        )
         pygame.draw.rect(self.screen, color, (x * 20, y * 20, 20, 20))
 
         health_x = x * 20
@@ -68,5 +76,7 @@ class InterfaceDrawer:
         text_surface = font.render(f"HP: {monster['hp']}", True, (255, 255, 255))
         self.screen.blit(text_surface, (health_x, health_y))
 
-        defense_surface = font.render(f"Defense: {monster['defense']}", True, (255, 255, 255))
+        defense_surface = font.render(
+            f"Defense: {monster['defense']}", True, (255, 255, 255)
+        )
         self.screen.blit(defense_surface, (health_x, health_y + 20))

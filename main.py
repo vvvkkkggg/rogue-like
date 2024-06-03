@@ -2,6 +2,7 @@ import pygame
 from controller.game_controller import GameController
 from view.interface_drawer import InterfaceDrawer
 
+
 def main():
     """
     The main function initializes the game and starts the game loop.
@@ -30,6 +31,7 @@ def main():
         clock.tick(10)
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()

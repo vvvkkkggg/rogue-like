@@ -2,6 +2,7 @@ from model.monster import Monster
 from model.player import Player
 from model.strategy import AggressiveStrategy
 
+
 class MonsterFactory:
     """
     The MonsterFactory class is responsible for creating instances of Monster.
@@ -9,6 +10,7 @@ class MonsterFactory:
     Attributes:
         None
     """
+
     def create_monster(self, position, strategy):
         """
         Creates a new instance of Monster with the given position and strategy.
@@ -30,6 +32,7 @@ class HumanFactory:
     Attributes:
         None
     """
+
     def create_human(self, position):
         """
         Creates a new instance of Player with the given position.
@@ -50,6 +53,7 @@ class BossFactory:
     Attributes:
         None
     """
+
     def create_boss(self, position):
         """
         Creates a new instance of Monster with the given position and an aggressive strategy.

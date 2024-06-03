@@ -6,11 +6,10 @@ from controller.game_controller import GameController
 
 
 class TestGameController(unittest.TestCase):
-
     def setUp(self):
         self.game_controller = GameController()
 
-    @patch('controller.game_controller.Game')
+    @patch("controller.game_controller.Game")
     def test_initialization(self, MockGame):
         # Проверка, что GameController инициализирует объект Game
         mock_game_instance = MockGame.return_value
@@ -59,5 +58,5 @@ class TestGameController(unittest.TestCase):
         self.game_controller.game.get_state.assert_called_once()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
