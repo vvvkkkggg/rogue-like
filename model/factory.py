@@ -1,6 +1,7 @@
 from model.monster import Monster
 from model.player import Player
 from model.strategy import AggressiveStrategy
+from model.builder import DefaultMapBuilder, GenerateMapBuilder
 
 
 class MonsterFactory:
@@ -65,3 +66,30 @@ class BossFactory:
             Monster: A new instance of Monster with an aggressive strategy.
         """
         return Monster(position, AggressiveStrategy())
+
+
+class MapFactory:
+    """
+    MapFactory creates instances of map builders based on the builder name.
+    """
+    @staticmethod
+    def get_builder(builder_name, width=20, height=20, filename=None):
+        """
+        Returns an instance of a map builder based on the given builder name.
+
+        Args:
+            builder_name (str): The name of the builder ('default', 'generate').
+            width (int): The width of the map (used for 'generate' builder).
+            height (int): The height of the map (used for 'generate' builder).
+            filename (str, optional): The name of the file containing the map data (used for 'default' builder).
+
+        Returns:
+            MapBuilder: An instance of a map builder.
+        """
+        if builder_name == 'default':
+            print("here")
+            return DefaultMapBuilder(filename)
+        elif builder_name == 'generate':
+            return GenerateMapBuilder(width, height)
+        else:
+            raise ValueError(f"Unknown builder name: {builder_name}")
