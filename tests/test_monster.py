@@ -1,5 +1,6 @@
 import unittest
 from model.position import Position
+from model.states import AggressiveState, PassiveState, PanicState
 from model.strategy import AggressiveStrategy, PassiveStrategy, CowardlyStrategy
 from model.monster import Monster, AggressiveMonster, PassiveMonster, CowardlyMonster
 
@@ -7,22 +8,20 @@ from model.monster import Monster, AggressiveMonster, PassiveMonster, CowardlyMo
 class TestMonster(unittest.TestCase):
     def test_monster_initialization(self):
         position = Position(0, 0)
-        strategy = AggressiveStrategy()
-        hp, attack, defense, speed, distance = 30, 10, 5, 0.2, 4
-        monster = Monster(position, strategy, hp, attack, defense, speed, distance)
+        state = AggressiveState()
+        hp, attack, defense = 30, 10, 5
+        monster = Monster(position, state, hp, attack, defense)
 
         self.assertEqual(monster.position, position)
-        self.assertEqual(monster.strategy, strategy)
+        self.assertEqual(type(monster.strategy), AggressiveStrategy)
         self.assertEqual(monster.hp, hp)
         self.assertEqual(monster.attack, attack)
         self.assertEqual(monster.defense, defense)
-        self.assertEqual(monster.speed, speed)
-        self.assertEqual(monster.distance, distance)
 
     def test_monster_take_damage(self):
         position = Position(0, 0)
-        strategy = AggressiveStrategy()
-        monster = Monster(position, strategy, 30, 10, 5, 0.2, 4)
+        state = AggressiveState()
+        monster = Monster(position, state, 30, 10, 5)
 
         monster.take_damage(10)
         self.assertEqual(monster.hp, 29)
