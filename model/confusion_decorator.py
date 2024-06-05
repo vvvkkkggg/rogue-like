@@ -21,7 +21,7 @@ class ConfusionDecorator:
         self.strategy = strategy
         self.turns_remaining = turns
 
-    def move(self, monster, field, player_position):
+    def move(self, monster, field, player_position, monsters=None):
         """
         Moves the monster according to the confusion effect or its original strategy.
 
