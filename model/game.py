@@ -64,10 +64,10 @@ class Game:
             ) ** 2 < 1:
                 self.player.attack_monster(monster)
                 monster.attack_player(self.player)
-                if monster.hp < 3:
+                if monster.hp < 10:
                     state = PanicState()
                     state.enter_state(monster)
-                if monster.hp >= 3:
+                if monster.hp >= 10:
                     state = NormalState()
                     state.enter_state(monster)
                 if monster.hp <= 0:

@@ -10,6 +10,10 @@ class Strategy:
         move(monster, field, player_position): Defines the movement logic for the monster.
     """
 
+    speed = 0
+    distance = 0
+
+
     def move(self, monster, field, player_position, monsters=None):
         """
         Defines the movement logic for the monster.
@@ -70,6 +74,9 @@ class AggressiveStrategy(Strategy):
         move(monster, field, player_position): Moves the monster aggressively on the field.
     """
 
+    speed = 0.2
+    distance = 4
+
     def move(self, monster, field, player_position, monsters=None):
         """
         Moves the monster aggressively towards the player on the field.
@@ -83,15 +90,15 @@ class AggressiveStrategy(Strategy):
         distance = (player_position.x - monster.position.x) ** 2 + (
             player_position.y - monster.position.y
         ) ** 2
-        if distance <= monster.distance**2:
+        if distance <= AggressiveStrategy.distance**2:
             if player_position.x > monster.position.x:
-                monster.position.x += monster.speed
+                monster.position.x += AggressiveStrategy.speed
             elif player_position.x < monster.position.x:
-                monster.position.x -= monster.speed
+                monster.position.x -= AggressiveStrategy.speed
             if player_position.y > monster.position.y:
-                monster.position.y += monster.speed
+                monster.position.y += AggressiveStrategy.speed
             elif player_position.y < monster.position.y:
-                monster.position.y -= monster.speed
+                monster.position.y -= AggressiveStrategy.speed
 
 
 class CowardlyStrategy(Strategy):
@@ -101,6 +108,10 @@ class CowardlyStrategy(Strategy):
     Methods:
         move(monster, field, player_position): Moves the monster away from the player on the field.
     """
+
+    speed = 0.1
+    distance = 4
+
 
     def move(self, monster, field, player_position, monsters=None):
         """
@@ -115,15 +126,16 @@ class CowardlyStrategy(Strategy):
         distance = (player_position.x - monster.position.x) ** 2 + (
             player_position.y - monster.position.y
         ) ** 2
-        if distance <= monster.distance**2:
+        if distance <= CowardlyStrategy.distance**2:
+            print("here2")
             if player_position.x > monster.position.x:
-                monster.position.x -= monster.speed
+                monster.position.x -= CowardlyStrategy.speed
             elif player_position.x < monster.position.x:
-                monster.position.x += monster.speed
+                monster.position.x += CowardlyStrategy.speed
             if player_position.y > monster.position.y:
-                monster.position.y -= monster.speed
+                monster.position.y -= CowardlyStrategy.speed
             elif player_position.y < monster.position.y:
-                monster.position.y += monster.speed
+                monster.position.y += CowardlyStrategy.speed
 
 
 class SameTypeCollisionAvoidanceStrategy(Strategy):
