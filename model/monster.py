@@ -24,7 +24,7 @@ class Monster:
     """
 
     def __init__(
-        self, position, strategy, hp, attack, defense, speed, distance, copy_probability=0
+        self, position, strategy, hp, attack, defense, copy_probability=0
     ):
         """
         Initializes a new instance of the Monster class.
@@ -41,8 +41,6 @@ class Monster:
         self.hp = hp
         self.attack = attack
         self.defense = defense
-        self.speed = speed
-        self.distance = distance
         self.copy_probability = copy_probability
 
     def move(self, field, player_position, monsters=None):
@@ -102,8 +100,6 @@ class AggressiveMonster(Monster):
             hp=30,
             attack=20,
             defense=5,
-            speed=0.2,
-            distance=4,
             copy_probability=-1,
         )
 
@@ -116,8 +112,6 @@ class PassiveMonster(Monster):
             hp=20,
             attack=5,
             defense=10,
-            speed=0,
-            distance=1,
             copy_probability=-1,
         )
 
@@ -130,8 +124,6 @@ class CowardlyMonster(Monster):
             hp=15,
             attack=5,
             defense=5,
-            speed=0.1,
-            distance=4,
             copy_probability=-1,
         )
 
@@ -144,7 +136,5 @@ class MoldMonster(Monster):
             hp=1,
             attack=5,
             defense=0,
-            speed=0,
-            distance=4,
             copy_probability=0.01,
         )

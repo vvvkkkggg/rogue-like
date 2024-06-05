@@ -24,6 +24,7 @@ class NormalState(State):
 
 class PanicState(State):
     def enter_state(self, mob):
+        print("here")
         coward_strategy = CowardlyStrategy()
         mob.strategy = coward_strategy
 
