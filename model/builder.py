@@ -9,10 +9,12 @@ from model.monster import (
 )
 import random
 
+
 class MapBuilder:
     """
     MapBuilder defines the interface for building a game map.
     """
+
     def __init__(self, width, height, filename=None):
         """
         Initializes the map builder with the given dimensions and optional file name.
@@ -49,13 +51,12 @@ class MapBuilder:
             y (int): The y-coordinate of the monster.
         """
         monster = {
-            'A': AggressiveMonster,
-            'P': PassiveMonster,
-            'C': CowardlyMonster,
-            'M': MoldMonster
+            "A": AggressiveMonster,
+            "P": PassiveMonster,
+            "C": CowardlyMonster,
+            "M": MoldMonster,
         }[monster_type](Position(x, y))
         self.monsters.append(monster)
-
 
     def build(self):
         """
@@ -71,6 +72,7 @@ class DefaultMapBuilder(MapBuilder):
     """
     DefaultMapBuilder loads a map from a file and builds the game instance.
     """
+
     def __init__(self, filename=None):
         """
         Initializes a new instance of the DefaultMapBuilder class.
@@ -98,7 +100,7 @@ class DefaultMapBuilder(MapBuilder):
         Returns:
             MapBuilder: builder.
         """
-        with open(self.filename, 'r') as file:
+        with open(self.filename, "r") as file:
             lines = file.readlines()
             self.set_size(*map(int, lines[0].split()))
             for line in lines[1:]:
@@ -109,10 +111,12 @@ class DefaultMapBuilder(MapBuilder):
         self.player = Player()
         return self
 
+
 class GenerateMapBuilder(MapBuilder):
     """
     GenerateMapBuilder generates a random map and builds the game instance.
     """
+
     def __init__(self, width, height):
         """
         Initializes a new instance of the GenerateMapBuilder class.
@@ -122,12 +126,12 @@ class GenerateMapBuilder(MapBuilder):
             height (int): The height of the generated map.
         """
         super().__init__(width, height)
-        
+
         self.monster_probabilities = {
-            'A': 0.25,
-            'P': 0.25,
-            'C': 0.25,
-            'M': 0.1,
+            "A": 0.25,
+            "P": 0.25,
+            "C": 0.25,
+            "M": 0.1,
         }
 
         self.calculate_monster_count()
@@ -140,7 +144,6 @@ class GenerateMapBuilder(MapBuilder):
         min_monsters = max(1, int(total_cells * 0.01))
         max_monsters = int(total_cells * 0.05)
         self.num_monsters = random.randint(min_monsters, max_monsters)
-
 
     def set_size(self, width, height):
         """
@@ -161,7 +164,7 @@ class GenerateMapBuilder(MapBuilder):
         Returns:
             MapBuilder: builder.
         """
-        occupied_positions = set((0,0))
+        occupied_positions = set((0, 0))
         monster_types = list(self.monster_probabilities.keys())
         monster_probabilities = list(self.monster_probabilities.values())
 
@@ -180,10 +183,12 @@ class GenerateMapBuilder(MapBuilder):
         self.player = Player()
         return self
 
+
 class HardcodeMapBuilder(MapBuilder):
     """
     HardcodeMapBuilder with harcoded objects.
     """
+
     def __init__(self):
         """
         Initializes a new instance of the HardcodeMapBuilder class.
@@ -202,6 +207,6 @@ class HardcodeMapBuilder(MapBuilder):
         self.monsters = [
             AggressiveMonster(Position(5, 5)),
             PassiveMonster(Position(10, 10)),
-            CowardlyMonster(Position(15, 15))
+            CowardlyMonster(Position(15, 15)),
         ]
         return self

@@ -72,6 +72,7 @@ class MapFactory:
     """
     MapFactory creates instances of map builders based on the builder name.
     """
+
     @staticmethod
     def get_builder(builder_name, width=20, height=20, filename=None):
         """
@@ -86,10 +87,9 @@ class MapFactory:
         Returns:
             MapBuilder: An instance of a map builder.
         """
-        if builder_name == 'default':
-            print("here")
+        if builder_name == "default":
             return DefaultMapBuilder(filename)
-        elif builder_name == 'generate':
+        elif builder_name == "generate":
             return GenerateMapBuilder(width, height)
         else:
             raise ValueError(f"Unknown builder name: {builder_name}")
