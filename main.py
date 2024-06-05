@@ -5,15 +5,26 @@ from model.game import Game
 import pygame
 import argparse
 
+
 def main():
     """
     The main function initializes the game and starts the game loop.
     """
     parser = argparse.ArgumentParser(description="RogueLike Game")
-    parser.add_argument('--map_file', type=str, help='Path to the map file')
-    parser.add_argument('--builder', type=str, choices=['default', 'generate'], default='generate', help='Map builder type')
-    parser.add_argument('--width', type=int, default=30, help='Width of the generated map')
-    parser.add_argument('--height', type=int, default=30, help='Height of the generated map')
+    parser.add_argument("--map_file", type=str, help="Path to the map file")
+    parser.add_argument(
+        "--builder",
+        type=str,
+        choices=["default", "generate"],
+        default="generate",
+        help="Map builder type",
+    )
+    parser.add_argument(
+        "--width", type=int, default=30, help="Width of the generated map"
+    )
+    parser.add_argument(
+        "--height", type=int, default=30, help="Height of the generated map"
+    )
     args = parser.parse_args()
 
     map_builder = MapFactory.get_builder(

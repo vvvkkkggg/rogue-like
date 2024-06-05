@@ -12,18 +12,44 @@ class Strategy:
 
     speed = 0
     distance = 0
+    healing_speed = 0
 
-
-    def move(self, monster, field, player_position, monsters=None):
+    def heal(self, monster):
         """
-        Defines the movement logic for the monster.
+        Defines the heal logic on each monster move.
+        The health of monstern must not be more than max_hp.
+        Strategy defines speed of healing.
+
+        Args:
+            monster (Monster): The monster instance.
+        """
+
+        monster.hp += self.healing_speed
+        if monster.hp > monster.max_hp:
+            monster.hp = monster.max_hp
+
+    def step(self, monster, field, player_position, monsters=None):
+        """
+        Defines logic of change position for the monster on each step.
 
         Args:
             monster (Monster): The monster instance.
             field (Field): The game field.
             player_position (Position): The current position of the player.
         """
-        pass
+
+    def move(self, monster, field, player_position, monsters=None):
+        """
+        Defines the movement logic for the monster on each step.
+
+        Args:
+            monster (Monster): The monster instance.
+            field (Field): The game field.
+            player_position (Position): The current position of the player.
+        """
+
+        self.step(monster, field, player_position, monsters)
+        self.heal(monster)
 
 
 class RandomStrategy(Strategy):
@@ -34,7 +60,7 @@ class RandomStrategy(Strategy):
         move(monster, field, player_position): Moves the monster randomly on the field.
     """
 
-    def move(self, monster, field, player_position, monsters=None):
+    def step(self, monster, field, player_position, monsters=None):
         """
         Moves the monster randomly on the field.
 
@@ -54,7 +80,7 @@ class PassiveStrategy(Strategy):
         move(monster, field, player_position): Moves the monster passively on the field.
     """
 
-    def move(self, monster, field, player_position, monsters=None):
+    def step(self, monster, field, player_position, monsters=None):
         """
         Moves the monster passively on the field.
 
@@ -76,8 +102,9 @@ class AggressiveStrategy(Strategy):
 
     speed = 0.2
     distance = 4
+    healing_speed = 0.5
 
-    def move(self, monster, field, player_position, monsters=None):
+    def step(self, monster, field, player_position, monsters=None):
         """
         Moves the monster aggressively towards the player on the field.
 
@@ -90,15 +117,15 @@ class AggressiveStrategy(Strategy):
         distance = (player_position.x - monster.position.x) ** 2 + (
             player_position.y - monster.position.y
         ) ** 2
-        if distance <= AggressiveStrategy.distance**2:
+        if distance <= self.distance**2:
             if player_position.x > monster.position.x:
-                monster.position.x += AggressiveStrategy.speed
+                monster.position.x += self.speed
             elif player_position.x < monster.position.x:
-                monster.position.x -= AggressiveStrategy.speed
+                monster.position.x -= self.speed
             if player_position.y > monster.position.y:
-                monster.position.y += AggressiveStrategy.speed
+                monster.position.y += self.speed
             elif player_position.y < monster.position.y:
-                monster.position.y -= AggressiveStrategy.speed
+                monster.position.y -= self.speed
 
 
 class CowardlyStrategy(Strategy):
@@ -110,10 +137,10 @@ class CowardlyStrategy(Strategy):
     """
 
     speed = 0.1
-    distance = 4
+    distance = 10
+    healing_speed = 0.5
 
-
-    def move(self, monster, field, player_position, monsters=None):
+    def step(self, monster, field, player_position, monsters=None):
         """
         Moves the monster away from the player on the field.
 
@@ -126,16 +153,15 @@ class CowardlyStrategy(Strategy):
         distance = (player_position.x - monster.position.x) ** 2 + (
             player_position.y - monster.position.y
         ) ** 2
-        if distance <= CowardlyStrategy.distance**2:
-            print("here2")
+        if distance <= self.distance**2:
             if player_position.x > monster.position.x:
-                monster.position.x -= CowardlyStrategy.speed
+                monster.position.x -= self.speed
             elif player_position.x < monster.position.x:
-                monster.position.x += CowardlyStrategy.speed
+                monster.position.x += self.speed
             if player_position.y > monster.position.y:
-                monster.position.y -= CowardlyStrategy.speed
+                monster.position.y -= self.speed
             elif player_position.y < monster.position.y:
-                monster.position.y += CowardlyStrategy.speed
+                monster.position.y += self.speed
 
 
 class SameTypeCollisionAvoidanceStrategy(Strategy):
@@ -165,7 +191,7 @@ class SameTypeCollisionAvoidanceStrategy(Strategy):
             for y in random.sample([-1, 0, 1], k=3):
                 yield monster.position.x + x, monster.position.y + y
 
-    def move(self, monster, field, player_position, monsters):
+    def step(self, monster, field, player_position, monsters):
         """
         Moves the monster to avoid collisions with monsters of the same type.
 

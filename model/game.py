@@ -1,7 +1,3 @@
-from model.states import PanicState, NormalState
-from model.strategy import CowardlyStrategy
-
-
 class Game:
     """
     The Game class represents the main game logic and state.
@@ -64,12 +60,6 @@ class Game:
             ) ** 2 < 1:
                 self.player.attack_monster(monster)
                 monster.attack_player(self.player)
-                if monster.hp < 10:
-                    state = PanicState()
-                    state.enter_state(monster)
-                if monster.hp >= 10:
-                    state = NormalState()
-                    state.enter_state(monster)
                 if monster.hp <= 0:
                     self.monsters.remove(monster)
 
