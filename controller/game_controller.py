@@ -1,5 +1,6 @@
 import pygame
 from model.confusion_decorator import ConfusionDecorator
+from model.invoker import Invoker, ConfuseNearbyMonstersCommand
 
 
 class GameController:
@@ -12,7 +13,9 @@ class GameController:
         Initializes the GameController instance and creates a new Game instance.
         """
         self.game = game
-        self.confused_monsters = []
+
+        self.invoker = Invoker()
+        self.invoker.register("confuse", ConfuseNearbyMonstersCommand(self.game))
 
     def handle_event(self, event):
         """
@@ -31,7 +34,7 @@ class GameController:
             elif event.key == pygame.K_d:
                 self.game.move_player("right")
             elif event.key == pygame.K_c:
-                self.confuse_nearby_monsters()
+                self.invoker.execute("confuse")
 
     def update(self):
         """
@@ -47,14 +50,3 @@ class GameController:
             dict: The current state of the game.
         """
         return self.game.get_state()
-
-    def confuse_nearby_monsters(self):
-        """
-        Confuses monsters that are in adjacent cells to the player.
-        """
-        player_distance = self.game.player.near_distance
-        near_monster = self.game.player.near_monster
-
-        if player_distance < 1:
-            near_monster.strategy = ConfusionDecorator(near_monster.strategy, turns=3)
-            self.confused_monsters.append(near_monster)
