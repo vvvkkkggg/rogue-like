@@ -1,9 +1,10 @@
 from model.position import Position
-from model.strategy import (
-    AggressiveStrategy,
-    PassiveStrategy,
-    CowardlyStrategy,
-    SameTypeCollisionAvoidanceStrategy,
+from model.states import (
+    PanicState,
+    PassiveState,
+    RandomState,
+    AggressiveState,
+    CollisionAvoidanceState,
 )
 import pygame
 import copy
@@ -23,9 +24,7 @@ class Monster:
         copy_probability(float): Probability of monster clone.
     """
 
-    def __init__(
-        self, position, strategy, hp, attack, defense, copy_probability=0
-    ):
+    def __init__(self, position, state, hp, attack, defense, copy_probability=0):
         """
         Initializes a new instance of the Monster class.
 
@@ -37,11 +36,15 @@ class Monster:
             defense (int): The defense strength of the monster.
         """
         self.position = position
-        self.strategy = strategy
+        self.strategy = None
+        self.default_state = state
         self.hp = hp
+        self.max_hp = hp
         self.attack = attack
         self.defense = defense
         self.copy_probability = copy_probability
+
+        state.enter_state(self)
 
     def move(self, field, player_position, monsters=None):
         """
@@ -52,6 +55,7 @@ class Monster:
             player_position (Position): The current position of the player.
         """
         self.strategy.move(self, field, player_position, monsters)
+        self.change_state()
 
     def attack_player(self, player):
         """
@@ -91,12 +95,24 @@ class Monster:
         """
         return copy.deepcopy(self)
 
+    def change_state(self):
+        """
+        Changes the monster's state based on its health.
+
+        If the monster's health is below half of its maximum, it enters PanicState.
+        Otherwise, it reverts to its default state.
+        """
+        if self.hp < self.max_hp // 2:
+            PanicState().enter_state(self)
+        else:
+            self.default_state.enter_state(self)
+
 
 class AggressiveMonster(Monster):
     def __init__(self, position):
         super().__init__(
             position,
-            AggressiveStrategy(),
+            AggressiveState(),
             hp=30,
             attack=20,
             defense=5,
@@ -108,7 +124,7 @@ class PassiveMonster(Monster):
     def __init__(self, position):
         super().__init__(
             position,
-            PassiveStrategy(),
+            PassiveState(),
             hp=20,
             attack=5,
             defense=10,
@@ -120,7 +136,7 @@ class CowardlyMonster(Monster):
     def __init__(self, position):
         super().__init__(
             position,
-            CowardlyStrategy(),
+            PanicState(),
             hp=15,
             attack=5,
             defense=5,
@@ -132,9 +148,9 @@ class MoldMonster(Monster):
     def __init__(self, position):
         super().__init__(
             position,
-            SameTypeCollisionAvoidanceStrategy(),
+            CollisionAvoidanceState(),
             hp=1,
             attack=5,
             defense=0,
-            copy_probability=0.01,
+            copy_probability=0.001,
         )
