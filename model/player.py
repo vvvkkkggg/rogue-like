@@ -44,6 +44,8 @@ class Player:
         elif direction == "right":
             self.position.x += 1
 
+        self.hp = min(self.hp + 10, 100)
+
     def attack_monster(self, monster):
         """
         Attacks the specified monster, inflicting damage based on the player's attack strength and the monster's defense.

@@ -23,10 +23,7 @@ class Strategy:
         Args:
             monster (Monster): The monster instance.
         """
-
-        monster.hp += self.healing_speed
-        if monster.hp > monster.max_hp:
-            monster.hp = monster.max_hp
+        monster.hp = min(self.healing_speed + monster.hp, monster.max_hp)
 
     def step(self, monster, field, player_position, monsters=None):
         """
@@ -47,7 +44,6 @@ class Strategy:
             field (Field): The game field.
             player_position (Position): The current position of the player.
         """
-
         self.step(monster, field, player_position, monsters)
         self.heal(monster)
 
